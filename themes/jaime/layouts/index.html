@@ -1,0 +1,44 @@
+{{ define "main" }}
+<div class="band">
+
+  <section class="masthead" aria-label="Introduction">
+    <div class="label masthead-label">Jaime Gago</div>
+    <h1 class="masthead-title">Platform engineer building evaluation infrastructure for AI agents.</h1>
+    <p class="masthead-lede">Twenty-five years in distributed systems, most recently leading platform engineering at LGT. Writing about what's shaking loose in software as AI starts writing better code than the best humans.</p>
+    <div class="masthead-meta">
+      <span>{{ site.Params.location }}</span>
+      {{ range site.Params.social }}
+        <span class="sep">&middot;</span>
+        <a href="{{ .url }}"{{ if hasPrefix .url "http" }} rel="me noopener"{{ end }}>{{ .name }}</a>
+      {{ end }}
+    </div>
+  </section>
+
+  <section class="band-section" aria-label="Building">
+    <div class="label band-heading">Building</div>
+    <div class="project-grid">
+      {{ range hugo.Data.projects.active }}
+        <a class="project-card" href="{{ .url }}" rel="noopener">
+          <div class="project-card-head">
+            <span class="project-name">{{ .name }}</span>
+            <span class="pill"><span class="pill-dot" aria-hidden="true"></span>Active</span>
+          </div>
+          <p class="project-desc">{{ .description }}</p>
+          <span class="project-link">{{ .urlLabel }}</span>
+        </a>
+      {{ end }}
+    </div>
+  </section>
+
+  <section class="band-section" aria-label="Writing">
+    <div class="label band-heading">Writing</div>
+    {{ $posts := where site.RegularPages "Section" "writing" }}
+    <ul class="post-list" data-scope="all">
+      {{ range first 5 $posts }}
+        <li>{{ partial "post-row.html" . }}</li>
+      {{ end }}
+    </ul>
+  </section>
+
+</div>
+{{ end }}

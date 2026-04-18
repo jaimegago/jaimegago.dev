@@ -1,0 +1,14 @@
+{{ define "main" }}
+<div class="prose">
+  <header class="page-header">
+    <h1 class="page-title">{{ .Title }}</h1>
+    {{ with .Description }}<p class="page-subtitle">{{ . }}</p>{{ end }}
+  </header>
+  {{ with .Content }}<div class="post-content">{{ . }}</div>{{ end }}
+  <ul class="post-list" data-scope="all">
+    {{ range .Pages.ByDate.Reverse }}
+      <li>{{ partial "post-row.html" . }}</li>
+    {{ end }}
+  </ul>
+</div>
+{{ end }}

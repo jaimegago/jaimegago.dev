@@ -1,0 +1,37 @@
+active:
+  - name: oasis
+    description: "Open evaluation standard for AI agents. Binary safety gates, independent verification."
+    url: "https://oasis-spec.dev"
+    urlLabel: "oasis-spec.dev"
+    longDescription: >-
+      An open specification for evaluating autonomous AI agents against a shared
+      set of capability and safety tests. OASIS treats safety as a binary gate:
+      no passes without independent verification, no "mostly safe" tier. The
+      spec, the reference harness, and the scenario library are all developed in
+      the open.
+  - name: joe
+    description: "Go-based Kubernetes AI copilot. OASIS-tested end-to-end."
+    url: "https://github.com/jaime-gago/joe"
+    urlLabel: "github.com/jaime-gago/joe"
+    longDescription: >-
+      A Kubernetes-native AI copilot written in Go. Joe drives clusters through
+      the same tool surface a platform engineer uses, and it ships with every
+      OASIS scenario wired into CI. The point is to keep the agent honest by
+      running the evaluation continuously, not just at launch.
+  - name: skillhub
+    description: "Claude Code plugin for authoring Claude Code plugins. MCP server, Apache 2.0."
+    url: "https://github.com/jaime-gago/skillhub"
+    urlLabel: "github.com/jaime-gago/skillhub"
+    longDescription: >-
+      A Claude Code plugin that helps you build Claude Code plugins: scaffolding,
+      an MCP server for local tool development, and a small library of skills
+      for common authoring patterns. Apache 2.0, designed to get out of the way
+      as soon as the plugin starts working.
+
+dormant:
+  - name: placeholder
+    description: "A dormant project will land here."
+    status: "Dormant"
+    longDescription: >-
+      Placeholder row so the "Dormant" section renders with the right visual
+      pattern once real entries show up.

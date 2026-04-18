@@ -1,0 +1,41 @@
+{{ define "main" }}
+<div class="prose">
+  <header class="page-header">
+    <div class="label masthead-label">Projects</div>
+    <h1 class="page-title">{{ .Title }}</h1>
+    {{ with .Description }}<p class="page-subtitle">{{ . }}</p>{{ end }}
+  </header>
+  {{ with .Content }}<div class="post-content">{{ . }}</div>{{ end }}
+
+  <h2 class="projects-section-heading">Active</h2>
+  <ul class="projects-list">
+    {{ range hugo.Data.projects.active }}
+      <li class="project-row">
+        <div class="project-row-head">
+          <a href="{{ .url }}" rel="noopener"><span class="project-name">{{ .name }}</span></a>
+          <div class="project-row-status">Active</div>
+        </div>
+        <div class="project-row-body">
+          <p>{{ .longDescription }}</p>
+          <a class="project-row-link" href="{{ .url }}" rel="noopener">{{ .urlLabel }}</a>
+        </div>
+      </li>
+    {{ end }}
+  </ul>
+
+  <h2 class="projects-section-heading">Dormant</h2>
+  <ul class="projects-list">
+    {{ range hugo.Data.projects.dormant }}
+      <li class="project-row">
+        <div class="project-row-head">
+          <span class="project-name">{{ .name }}</span>
+          <div class="project-row-status">{{ .status }}</div>
+        </div>
+        <div class="project-row-body">
+          <p>{{ .longDescription }}</p>
+        </div>
+      </li>
+    {{ end }}
+  </ul>
+</div>
+{{ end }}

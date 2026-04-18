@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="{{ site.LanguageCode | default "en-us" }}">
+  <head>
+    {{ partial "head.html" . }}
+  </head>
+  <body>
+    <div class="site">
+      {{ partial "nav.html" . }}
+      <main class="site-main" id="main">
+        <div class="shell">
+          {{ block "main" . }}{{ end }}
+        </div>
+      </main>
+      {{ partial "footer.html" . }}
+    </div>
+    {{ partial "analytics.html" . }}
+    {{ $toggle := resources.Get "js/theme-toggle.js" | minify | fingerprint }}
+    <script src="{{ $toggle.RelPermalink }}" integrity="{{ $toggle.Data.Integrity }}" defer></script>
+  </body>
+</html>

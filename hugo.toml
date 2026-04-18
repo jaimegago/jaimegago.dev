@@ -1,0 +1,85 @@
+baseURL = "https://jaimegago.dev/"
+languageCode = "en-us"
+defaultContentLanguage = "en-us"
+title = "Jaime Gago"
+theme = "jaime"
+enableRobotsTXT = false
+enableEmoji = false
+summaryLength = 30
+
+[pagination]
+  pagerSize = 100
+
+[outputs]
+  home = ["HTML", "RSS"]
+  section = ["HTML", "RSS"]
+
+[permalinks]
+  writing = "/writing/:slug/"
+
+[taxonomies]
+  tag = "tags"
+
+[markup]
+  [markup.goldmark.renderer]
+    unsafe = true
+  [markup.highlight]
+    style = "base16-snazzy"
+    noClasses = false
+    lineNos = false
+    codeFences = true
+    tabWidth = 2
+    guessSyntax = true
+
+[params]
+  description = "Platform engineer building evaluation infrastructure for AI agents."
+  author = "Jaime Gago"
+  location = "Barcelona"
+  repoURL = "https://github.com/jaimegago/jaimegago.dev-web"
+  # GoatCounter endpoint. TODO: replace `jaimegago` with the actual registered subdomain once provisioned.
+  goatcounterURL = "https://jaimegago.goatcounter.com/count"
+
+  [params.palette]
+    # Dark-mode tokens (derived light-mode values live in the theme CSS).
+    background = "#0b0b0d"
+    surface    = "#121214"
+    border     = "#1e1e22"
+    text       = "#e8e6e1"
+    textMuted  = "#a8a69e"
+    textDim    = "#7a7872"
+    accent     = "#d4a574"
+
+  [[params.social]]
+    name  = "GitHub"
+    url   = "https://github.com/jaimegago"
+    kind  = "github"
+  [[params.social]]
+    name  = "LinkedIn"
+    url   = "https://www.linkedin.com/in/jaimegago/"
+    kind  = "linkedin"
+  [[params.social]]
+    name  = "RSS"
+    url   = "/index.xml"
+    kind  = "rss"
+  [[params.social]]
+    name  = "Email"
+    url   = "mailto:hello@jaimegago.dev"
+    kind  = "email"
+
+[menu]
+  [[menu.main]]
+    name   = "Index"
+    url    = "/"
+    weight = 10
+  [[menu.main]]
+    name   = "Writing"
+    url    = "/writing/"
+    weight = 20
+  [[menu.main]]
+    name   = "Projects"
+    url    = "/projects/"
+    weight = 30
+  [[menu.main]]
+    name   = "About"
+    url    = "/about/"
+    weight = 40

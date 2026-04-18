@@ -1,0 +1,6 @@
+{{- if and (not hugo.IsServer) (ne hugo.Environment "development") -}}
+{{- with site.Params.goatcounterURL -}}
+<script data-goatcounter="{{ . }}"
+        async src="//gc.zgo.at/count.js"></script>
+{{- end -}}
+{{- end -}}

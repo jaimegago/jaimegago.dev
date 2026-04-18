@@ -1,0 +1,15 @@
+{{- $tag := "" -}}
+{{- with .Params.tags }}
+  {{- if reflect.IsSlice . -}}{{ $tag = index . 0 }}{{- else -}}{{ $tag = . }}{{- end -}}
+{{- end -}}
+{{- $tagSlug := $tag | urlize | default "untagged" -}}
+<a class="post-row" href="{{ .RelPermalink }}" data-tag="{{ $tagSlug }}">
+  <time class="post-date" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time>
+  <div class="post-body">
+    <div>
+      {{ with $tag }}<span class="post-tag">{{ . }}</span>{{ end }}
+      <span class="post-title">{{ .Title }}</span>
+    </div>
+    {{ with .Params.description }}<p class="post-excerpt">{{ . }}</p>{{ end }}
+  </div>
+</a>

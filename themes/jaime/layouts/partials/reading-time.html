@@ -1,0 +1,4 @@
+{{- $wc := .WordCount -}}
+{{- $min := math.Ceil (div (float $wc) 220.0) -}}
+{{- if lt $min 1.0 -}}{{- $min = 1.0 -}}{{- end -}}
+{{- printf "%d min read" (int $min) -}}

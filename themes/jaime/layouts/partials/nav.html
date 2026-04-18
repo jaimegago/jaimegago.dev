@@ -1,0 +1,22 @@
+<header class="nav">
+  <div class="shell">
+    <nav class="nav-row" aria-label="Primary">
+      <a class="nav-brand" href="{{ "/" | relURL }}">jaimegago<span class="dot">.</span>dev</a>
+      <div class="nav-links">
+        {{ range site.Menus.main }}
+          {{- $active := false -}}
+          {{- if eq .URL "/" -}}
+            {{- $active = $.IsHome -}}
+          {{- else -}}
+            {{- $active = hasPrefix $.RelPermalink .URL -}}
+          {{- end -}}
+          <a href="{{ .URL | relURL }}"{{ if $active }} class="is-active" aria-current="page"{{ end }}>{{ .Name }}</a>
+        {{ end }}
+        <button class="theme-toggle" type="button" aria-label="Toggle color theme" data-theme-toggle>
+          <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </div>
+    </nav>
+  </div>
+</header>

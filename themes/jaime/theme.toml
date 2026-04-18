@@ -1,0 +1,12 @@
+name = "jaime"
+license = "MIT"
+licenselink = ""
+description = "Custom single-author theme for jaimegago.dev."
+homepage = "https://jaimegago.dev/"
+tags = ["personal", "minimal", "dark"]
+features = ["dark", "light", "monospace-brand", "og-images"]
+min_version = "0.128.0"
+
+[author]
+  name = "Jaime Gago"
+  homepage = "https://jaimegago.dev/"

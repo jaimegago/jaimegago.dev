@@ -1,0 +1,14 @@
+{{/* Inline theme bootstrap — runs synchronously before paint to prevent FOUC. */}}
+<script>
+  (function () {
+    try {
+      var stored = localStorage.getItem('theme');
+      var pref = (stored === 'light' || stored === 'dark')
+        ? stored
+        : (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+      document.documentElement.setAttribute('data-theme', pref);
+    } catch (e) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  })();
+</script>

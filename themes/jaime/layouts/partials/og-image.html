@@ -1,0 +1,76 @@
+{{/*
+  og-image.html — generates a 1200x630 PNG social card for this page.
+  Uses Hugo's native images.Text filter over a bundled base PNG so no
+  external tooling is required (Hugo binary is the only dependency).
+  Returns the Permalink of the generated image (empty string if skipped).
+*/}}
+
+{{- $result := "" -}}
+{{- $base     := resources.Get "og/base.png" -}}
+{{- $fontSans := resources.Get "og/fonts/Inter-Regular.ttf" -}}
+{{- $fontMono := resources.Get "og/fonts/JetBrainsMono-Regular.ttf" -}}
+
+{{- if and $base $fontSans $fontMono -}}
+  {{- $title := "" -}}
+  {{- $subtitle := "jaimegago.dev" -}}
+  {{- if .IsHome -}}
+    {{- $title = "Platform engineer building evaluation infrastructure for AI agents." -}}
+  {{- else if and (eq .Section "writing") .IsPage -}}
+    {{- $title = .Title -}}
+    {{- $subtitle = .Date.Format "2006-01-02" -}}
+  {{- else -}}
+    {{- $title = .Title | default site.Title -}}
+  {{- end -}}
+  {{- if eq $title "" -}}
+    {{- $title = site.Title -}}
+  {{- end -}}
+
+  {{/* Greedy word-wrap at ~34 characters per line, max 4 lines. */}}
+  {{- $maxChars := 34 -}}
+  {{- $maxLines := 4 -}}
+  {{- $lines := slice -}}
+  {{- $cur := "" -}}
+  {{- range split $title " " -}}
+    {{- $candidate := cond (eq $cur "") . (printf "%s %s" $cur .) -}}
+    {{- if gt (len $candidate) $maxChars -}}
+      {{- if ne $cur "" -}}{{- $lines = $lines | append $cur -}}{{- end -}}
+      {{- $cur = . -}}
+    {{- else -}}
+      {{- $cur = $candidate -}}
+    {{- end -}}
+  {{- end -}}
+  {{- if ne $cur "" -}}{{- $lines = $lines | append $cur -}}{{- end -}}
+  {{- if gt (len $lines) $maxLines -}}
+    {{- $kept := first $maxLines $lines -}}
+    {{- $truncated := slice -}}
+    {{- range $i, $l := $kept -}}
+      {{- if eq $i (sub $maxLines 1) -}}
+        {{- $truncated = $truncated | append (printf "%s…" $l) -}}
+      {{- else -}}
+        {{- $truncated = $truncated | append $l -}}
+      {{- end -}}
+    {{- end -}}
+    {{- $lines = $truncated -}}
+  {{- end -}}
+
+  {{- $img := $base -}}
+  {{- $img = $img.Filter (images.Text "jaimegago.dev" (dict
+      "x" 72 "y" 72 "size" 22 "color" "#e8e6e1" "font" $fontMono "linespacing" 4)) -}}
+  {{- $img = $img.Filter (images.Text "●" (dict
+      "x" 1080 "y" 72 "size" 18 "color" "#d4a574" "font" $fontSans "linespacing" 4)) -}}
+
+  {{- $startY := 230 -}}
+  {{- $lineH  := 62 -}}
+  {{- range $i, $line := $lines -}}
+    {{- $y := add $startY (mul $i $lineH) -}}
+    {{- $img = $img.Filter (images.Text $line (dict
+        "x" 72 "y" $y "size" 44 "color" "#e8e6e1" "font" $fontSans "linespacing" 4)) -}}
+  {{- end -}}
+
+  {{- $img = $img.Filter (images.Text $subtitle (dict
+      "x" 72 "y" 520 "size" 20 "color" "#a8a69e" "font" $fontMono "linespacing" 4)) -}}
+
+  {{- $result = $img.Permalink -}}
+{{- end -}}
+
+{{- return $result -}}

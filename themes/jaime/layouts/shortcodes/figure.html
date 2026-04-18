@@ -1,0 +1,17 @@
+{{- $src     := .Get "src" -}}
+{{- $alt     := .Get "alt" -}}
+{{- $caption := .Get "caption" -}}
+
+{{- if not $src -}}
+  {{- errorf "figure shortcode: missing required `src` (used at %s)" .Position -}}
+{{- end -}}
+{{- if or (not $alt) (eq (trim $alt " ") "") -}}
+  {{- errorf "figure shortcode: `alt` is required and must be non-empty (used at %s)" .Position -}}
+{{- end -}}
+
+<figure class="figure">
+  <img src="{{ $src | relURL }}" alt="{{ $alt }}" loading="lazy" decoding="async">
+  {{- with $caption }}
+  <figcaption>{{ . | markdownify }}</figcaption>
+  {{- end }}
+</figure>

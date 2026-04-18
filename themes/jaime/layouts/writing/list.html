@@ -1,0 +1,59 @@
+{{ define "main" }}
+<div class="band">
+  <header class="page-header">
+    <div class="label masthead-label">Writing</div>
+    <h1 class="page-title">{{ .Title }}</h1>
+    {{ with .Description }}<p class="page-subtitle">{{ . }}</p>{{ end }}
+  </header>
+
+  {{ $posts := .RegularPages.ByDate.Reverse }}
+  {{ $scope := "all" }}
+
+  {{/* Tag filters: real links (work without JS). Progressive JS enhancement
+       just swaps the data-scope on the list so filters feel instant. */}}
+  <nav class="tag-filters" aria-label="Filter by tag">
+    <a class="tag-filter is-active" data-filter="all" href="#">All</a>
+    <a class="tag-filter" data-filter="essay"  href="/tags/essay/">Essay</a>
+    <a class="tag-filter" data-filter="launch" href="/tags/launch/">Launch</a>
+    <a class="tag-filter" data-filter="reply"  href="/tags/reply/">Reply</a>
+    <a class="tag-filter" data-filter="build"  href="/tags/build/">Build</a>
+  </nav>
+
+  {{/* Group by year. */}}
+  {{ $byYear := $posts.GroupByDate "2006" }}
+  <ul class="post-list" data-scope="{{ $scope }}">
+    {{ range $byYear }}
+      <li class="year-group">
+        <h2 class="year-heading">{{ .Key }}</h2>
+        <ul class="post-list-year">
+          {{ range .Pages }}
+            <li>{{ partial "post-row.html" . }}</li>
+          {{ end }}
+        </ul>
+      </li>
+    {{ end }}
+  </ul>
+</div>
+
+<script>
+  (function () {
+    var list = document.querySelector('[data-scope]');
+    if (!list) return;
+    var filters = document.querySelectorAll('.tag-filter');
+    filters.forEach(function (f) {
+      f.addEventListener('click', function (e) {
+        var target = f.getAttribute('data-filter');
+        if (!target) return;
+        e.preventDefault();
+        filters.forEach(function (ff) { ff.classList.remove('is-active'); });
+        f.classList.add('is-active');
+        list.setAttribute('data-scope', target);
+        document.querySelectorAll('[data-tag]').forEach(function (row) {
+          var tag = row.getAttribute('data-tag');
+          row.style.display = (target === 'all' || tag === target) ? '' : 'none';
+        });
+      });
+    });
+  })();
+</script>
+{{ end }}
