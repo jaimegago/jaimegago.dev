@@ -5,7 +5,7 @@ description: Where I've been and where I'm pointing next.
 
 Born in the south of Spain, lived in the south-west of France, Silicon Valley, Amsterdam, and now Barcelona. I've been following the autodidact's path since my parents made the mistake of getting me a computer around age 12 — breaking things, building things, fixing things, reading manuals, whatever the problem called for.
 
-## Systems, at whatever scale the problem asks for
+## Systems, at every scale
 
 At Apple, I worked on the backend behind Siri — the kind of infrastructure that has to stay up for every Apple device on the planet. Before that, I worked on automated video production at the Stanford School of Medicine. I've built large-scale monitoring platforms, auto-scaling infrastructure, and enough home automation over KNX wired into Siri to drive my house by voice.
 
