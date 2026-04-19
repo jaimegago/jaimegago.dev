@@ -32,7 +32,7 @@ summaryLength = 30
     guessSyntax = true
 
 [params]
-  description = "Platform engineer building evaluation infrastructure for AI agents."
+  description = "Condensing systems from the vapor of data."
   author = "Jaime Gago"
   location = "Barcelona"
   repoURL = "https://github.com/jaimegago/jaimegago.dev-web"
