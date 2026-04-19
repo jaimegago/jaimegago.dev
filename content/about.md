@@ -1,6 +1,7 @@
 ---
 title: About
 description: Where I've been and where I'm pointing next.
+hideTitle: true
 ---
 
 Born in the south of Spain, lived in the south-west of France, Silicon Valley, Amsterdam, and now Barcelona. I've been following the autodidact's path since my parents made the mistake of getting me a computer around age 12 — breaking things, building things, fixing things, reading manuals, whatever the problem called for.

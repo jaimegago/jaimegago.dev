@@ -374,6 +374,7 @@ main.site-main {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--space-4);
+  align-items: stretch;
 }
 
 @media (max-width: 720px) {
@@ -390,6 +391,7 @@ main.site-main {
   border-radius: var(--radius-lg);
   background: var(--surface);
   min-height: 180px;
+  height: 100%;
   transition: border-color var(--transition), transform var(--transition), background var(--transition);
   text-decoration: none;
   color: inherit;
