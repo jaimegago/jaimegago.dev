@@ -5,10 +5,9 @@
     <div class="label masthead-label">Jaime Gago</div>
     <h1 class="masthead-title">Condensing systems from the vapor of data</h1>
     <div class="masthead-meta">
-      <span>{{ site.Params.location }}</span>
-      {{ range site.Params.social }}
-        <span class="sep">&middot;</span>
-        <a href="{{ .url }}"{{ if hasPrefix .url "http" }} rel="me noopener"{{ end }}>{{ .name }}</a>
+      {{ range $i, $s := site.Params.social }}
+        {{ if $i }}<span class="sep">&middot;</span>{{ end }}
+        <a href="{{ $s.url }}"{{ if hasPrefix $s.url "http" }} rel="me noopener"{{ end }}>{{ $s.name }}</a>
       {{ end }}
     </div>
   </section>

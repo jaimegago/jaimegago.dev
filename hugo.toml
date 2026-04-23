@@ -60,10 +60,6 @@ summaryLength = 30
     name  = "RSS"
     url   = "/index.xml"
     kind  = "rss"
-  [[params.social]]
-    name  = "Email"
-    url   = "mailto:hello@jaimegago.dev"
-    kind  = "email"
 
 [menu]
   [[menu.main]]
