@@ -11,8 +11,6 @@ active:
       the open.
   - name: joe
     description: "Go-based Kubernetes AI copilot. OASIS-tested end-to-end."
-    url: "https://github.com/jaime-gago/joe"
-    urlLabel: "github.com/jaime-gago/joe"
     longDescription: >-
       A Kubernetes-native AI copilot written in Go. Joe drives clusters through
       the same tool surface a platform engineer uses, and it ships with every
@@ -20,8 +18,8 @@ active:
       running the evaluation continuously, not just at launch.
   - name: skillhub
     description: "Claude Code plugin for authoring Claude Code plugins. MCP server, Apache 2.0."
-    url: "https://github.com/jaime-gago/skillhub"
-    urlLabel: "github.com/jaime-gago/skillhub"
+    url: "https://github.com/jaimegago/skillhub"
+    urlLabel: "github.com/jaimegago/skillhub"
     longDescription: >-
       A Claude Code plugin that helps you build Claude Code plugins: scaffolding,
       an MCP server for local tool development, and a small library of skills

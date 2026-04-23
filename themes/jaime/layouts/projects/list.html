@@ -12,12 +12,18 @@
     {{ range hugo.Data.projects.active }}
       <li class="project-row">
         <div class="project-row-head">
-          <a href="{{ .url }}" rel="noopener"><span class="project-name">{{ .name }}</span></a>
+          {{ if .url }}
+            <a href="{{ .url }}" rel="noopener"><span class="project-name">{{ .name }}</span></a>
+          {{ else }}
+            <span class="project-name">{{ .name }}</span>
+          {{ end }}
           <div class="project-row-status">Active</div>
         </div>
         <div class="project-row-body">
           <p>{{ .longDescription }}</p>
-          <a class="project-row-link" href="{{ .url }}" rel="noopener">{{ .urlLabel }}</a>
+          {{ if .url }}
+            <a class="project-row-link" href="{{ .url }}" rel="noopener">{{ .urlLabel }}</a>
+          {{ end }}
         </div>
       </li>
     {{ end }}

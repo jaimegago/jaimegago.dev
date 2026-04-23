@@ -16,14 +16,24 @@
     <div class="label band-heading">Building</div>
     <div class="project-grid">
       {{ range hugo.Data.projects.active }}
-        <a class="project-card" href="{{ .url }}" rel="noopener">
-          <div class="project-card-head">
-            <span class="project-name">{{ .name }}</span>
-            <span class="pill"><span class="pill-dot" aria-hidden="true"></span>Active</span>
+        {{ if .url }}
+          <a class="project-card" href="{{ .url }}" rel="noopener">
+            <div class="project-card-head">
+              <span class="project-name">{{ .name }}</span>
+              <span class="pill"><span class="pill-dot" aria-hidden="true"></span>Active</span>
+            </div>
+            <p class="project-desc">{{ .description }}</p>
+            <span class="project-link">{{ .urlLabel }}</span>
+          </a>
+        {{ else }}
+          <div class="project-card">
+            <div class="project-card-head">
+              <span class="project-name">{{ .name }}</span>
+              <span class="pill"><span class="pill-dot" aria-hidden="true"></span>Active</span>
+            </div>
+            <p class="project-desc">{{ .description }}</p>
           </div>
-          <p class="project-desc">{{ .description }}</p>
-          <span class="project-link">{{ .urlLabel }}</span>
-        </a>
+        {{ end }}
       {{ end }}
     </div>
   </section>
