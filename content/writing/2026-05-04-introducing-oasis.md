@@ -51,10 +51,10 @@ OASIS itself ships with a reference runner — **oasisctl**, a Go CLI that loads
 
 ## A note on how this got made
 
-OASIS started with me. I made the early decisions and own everything that's wrong with them. It was also a months-long collaboration with Claude — architecture conversations, sanity checks, draft edits, surveys of literature I couldn't have read in the time available. The shape of the spec exists because of that iteration. The full account, with the actual decision points and what changed, is at [oasis-spec.dev/docs/decisions](https://oasis-spec.dev/docs/decisions/).
+OASIS started with me. I made the early decisions and own everything that's wrong with them. It was also a months-long collaboration with Claude — architecture conversations, sanity checks, draft edits, surveys of literature I couldn't have read in the time available. The shape of the spec exists because of that iteration.
 
 ## Where things are
 
-OASIS is at v1.0.0-rc5, feature-complete and validated end-to-end against Joe. The spec, the SI profile, oasisctl, and the rest are all at [oasis-spec.dev](https://oasis-spec.dev) — that's the place to go if you want to read further. The reasoning behind every major decision is in the Motivation, Design Principles, and Design Decisions docs there.
+OASIS is at v1.0.0-rc1.7. The spec, the SI profile, and oasisctl are all at [oasis-spec.dev](https://oasis-spec.dev) — that's the place to go if you want to read further. Reference evaluations will be published as conformant runs become available. The reasoning behind every major decision is in the [Motivation](https://oasis-spec.dev/docs/v1.0/spec/motivation/) and [Design Principles](https://oasis-spec.dev/docs/v1.0/spec/principles/) docs there.
 
 If you read this and any of it lands — whether you think the design is right, wrong, or partially both — I'd love to hear about it. File an issue, open a PR, post a comment somewhere I'll see it, or just write back. Feedback from people who care about this problem is what decides whether OASIS becomes useful beyond me.
