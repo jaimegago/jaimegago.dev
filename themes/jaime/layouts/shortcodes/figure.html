@@ -1,6 +1,8 @@
 {{- $src     := .Get "src" -}}
 {{- $alt     := .Get "alt" -}}
 {{- $caption := .Get "caption" -}}
+{{- $thumb   := .Get "thumb" -}}
+{{- $width   := .Get "width" | default "380x" -}}
 
 {{- if not $src -}}
   {{- errorf "figure shortcode: missing required `src` (used at %s)" .Position -}}
@@ -9,9 +11,25 @@
   {{- errorf "figure shortcode: `alt` is required and must be non-empty (used at %s)" .Position -}}
 {{- end -}}
 
+{{- if eq $thumb "true" -}}
+  {{- $img := resources.Get $src -}}
+  {{- if not $img -}}
+    {{- errorf "figure shortcode: could not find asset `%s` (used at %s)" $src .Position -}}
+  {{- end -}}
+  {{- $small := $img.Resize $width -}}
+  <figure class="figure figure-thumb">
+    <a href="{{ $img.RelPermalink }}" target="_blank" rel="noopener">
+      <img src="{{ $small.RelPermalink }}" alt="{{ $alt }}" loading="lazy" decoding="async" width="{{ $small.Width }}" height="{{ $small.Height }}">
+    </a>
+    {{- with $caption }}
+    <figcaption>{{ . | markdownify }}</figcaption>
+    {{- end }}
+  </figure>
+{{- else -}}
 <figure class="figure">
   <img src="{{ $src | relURL }}" alt="{{ $alt }}" loading="lazy" decoding="async">
   {{- with $caption }}
   <figcaption>{{ . | markdownify }}</figcaption>
   {{- end }}
 </figure>
+{{- end -}}

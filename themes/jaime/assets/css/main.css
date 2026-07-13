@@ -718,6 +718,16 @@ main.site-main {
   line-height: 1.5;
 }
 
+.figure-thumb img {
+  width: auto;
+  max-width: 100%;
+}
+
+.figure-thumb a {
+  display: inline-block;
+  line-height: 0;
+}
+
 /* ---- projects page ---- */
 
 .projects-list {
