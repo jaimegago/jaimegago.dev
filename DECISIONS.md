@@ -66,5 +66,6 @@ load-bearing — override freely.
   of `content/about.md`.
 - Each draft post in `content/writing/` has a `<!-- TODO -->` marker and a
   single placeholder paragraph.
-- `data/projects.yaml` has a single dormant placeholder row to establish
-  the pattern; replace when a real dormant project exists.
+- `data/projects.yaml` `dormant` list is empty (no dormant projects yet).
+  The "Dormant" heading only renders when the list is non-empty
+  (`themes/jaime/layouts/projects/list.html`).

@@ -80,13 +80,13 @@ The word for this is not "safe." It's *governed by construction*. Machine-checka
 
 ## Trust, but evaluate
 
-A claim like the last paragraph should make you suspicious. It's the vendor describing his own safety architecture; every vendor does that, including the ones that ship 13-hour outages.
+A claim like the last paragraph should make you suspicious. It's the vendor describing his own safety architecture, and every vendor's architecture sounds airtight in the vendor's own words.
 
 That's why Joe doesn't ship alone. Alongside it I built OASIS, an open evaluation framework for agent safety: scenarios that put an agent in front of situations where the unsafe action is the tempting one, and deterministic verdicts on what it actually did. I wrote about why OASIS exists in [a separate essay](/writing/introducing-oasis/); the short version is that agent safety claims should be reproducible by someone who isn't the author. Joe is evaluated against OASIS scenarios, and the evaluations are as public as the code.
 
-And here is where I owe you the same honesty I've demanded of everyone else in this essay. Joe is not a perfect solution, and I don't think one exists. The classification is deterministic, but it's deterministic *code*, and code has bugs — a tool could be misclassified, and OASIS could fail to catch it. The evaluations reduce the odds; they don't zero them. And below all the governance sits the same class of model that talked me through that December ticket: brilliant at forming hypotheses, and still capable of being confidently wrong. Like self-driving cars, agents built as safely as we know how will still get into accidents. Joe will make mistakes — the architecture exists to bound what a mistake can touch, not to pretend mistakes won't happen.
+That scrutiny has to point at Joe too. Joe is not a perfect solution, and I don't think one exists. The classification is deterministic, but it's deterministic *code*, and code has bugs — a tool could be misclassified, and OASIS could fail to catch it. The evaluations reduce the odds; they don't zero them. And below all the governance sits the same class of model that talked me through that December ticket: brilliant at forming hypotheses, and still capable of being confidently wrong. Like self-driving cars, agents built as safely as we know how will still get into accidents. Joe will make mistakes — the architecture exists to bound what a mistake can touch, not to pretend mistakes won't happen.
 
-My claim is narrower: the safety is in the construction, not the configuration — and among open-source infrastructure agents, I haven't found another one built that way. If one exists, I want to see it; that's a comparison the whole field needs.
+My claim is narrower: the safety is in the construction, not the configuration — and among open-source infrastructure agents, I haven't found another one built that way. If I've missed one, I'd genuinely like to know — the field would be better for the comparison.
 
 ## Why open source is non-negotiable
 
@@ -96,7 +96,7 @@ These agents will be given keys to critical infrastructure. Not hypothetically: 
 
 ## What Joe is today
 
-Joe ships as a single Go binary. Its first core idea — the deterministic Read/Mutate boundary — you've already met. The second is the graph. When you point Joe at your infrastructure, it explores it and persists what it learns — components, workloads, and the relationships between them — in an embedded SQLite database that ships inside that same binary. The graph is Joe's working model of your infrastructure: kept current against the live systems, not rebuilt from zero every time you ask a question. That's the difference between an agent that rediscovers your cluster on every prompt — slow, token-hungry, and amnesiac — and one that reasons over an accumulated, refreshed picture of what is *actually running*. Not what git says should be running, which, as my December ticket demonstrates, is not the same thing: the drift between the two is exactly where that incident lived, and exactly what a live graph makes visible.
+Joe ships as a single Go binary. Its first core idea — the deterministic Read/Mutate boundary — you've already met. The second is the graph. When you point Joe at your infrastructure, it explores it and builds a graph of what it finds — components, workloads, and the relationships between them. And that graph persists: Joe remembers your infrastructure across sessions. The graph is Joe's working model of your infrastructure: kept current against the live systems, not rebuilt from zero every time you ask a question. That's the difference between an agent that rediscovers your cluster on every prompt — slow, token-hungry, and amnesiac — and one that reasons over an accumulated, refreshed picture of what is *actually running*. Not what git says should be running, which, as my December ticket demonstrates, is not the same thing: the drift between the two is exactly where that incident lived, and exactly what a live graph makes visible.
 
 The graph is also what makes Joe useful to other agents. Ask Joe questions through its web UI, or wire it into your coding agent over MCP — and the model writing your manifests suddenly knows what the cluster actually looks like, because it's reading Joe's graph instead of guessing from the repo.
 
@@ -118,9 +118,7 @@ So far Joe has proven itself in [a lab environment](https://github.com/jaimegago
 
 I want to push a conversation. Agents *will* be given the keys to critical infrastructure — the economics guarantee it. Whether they'll be open source and governed by construction, or proprietary and governed by promises, is being decided right now, mostly by default. I'd like the default challenged while it's still cheap to challenge. If this essay makes one platform team ask a vendor "what guarantees the agent only reads?", it did its job.
 
-And I wanted to prove something to myself. The last few months of working with these models had been telling me, somewhere in the gut, that the old constraint was gone — that one person could now design, build, evaluate, and ship a product this ambitious alone. Joe is the test of that claim. How it was actually built is a story for its own essay; the short version is that you're reading the launch post, so the gut was right.
-
-Which leads to the most selfish item of all, so I'll just say it plainly: I built Joe nights and weekends, and I'd rather build things like it as my day job. If your team works on applied AI or forward-deployed engineering — putting agents into real production organizations, with the safety problems that come with that — I'm interested, and this essay plus the repos are my application.
+And I wanted to prove something to myself. The last few months of working with these models had been telling me, somewhere in the gut, that the old constraint was gone — that one person could now design, build, evaluate, and ship a product this ambitious alone. Joe is the test of that claim. How it was actually built is a story for its own essay; the short version is that you're reading the launch post, so the gut was right. It's also, if I'm honest, the kind of work I'd gladly make my day job.
 
 ## Try it
 

@@ -29,19 +29,21 @@
     {{ end }}
   </ul>
 
-  <h2 class="projects-section-heading">Dormant</h2>
-  <ul class="projects-list">
-    {{ range hugo.Data.projects.dormant }}
-      <li class="project-row">
-        <div class="project-row-head">
-          <span class="project-name">{{ .name }}</span>
-          <div class="project-row-status">{{ .status }}</div>
-        </div>
-        <div class="project-row-body">
-          <p>{{ .longDescription }}</p>
-        </div>
-      </li>
-    {{ end }}
-  </ul>
+  {{ with hugo.Data.projects.dormant }}
+    <h2 class="projects-section-heading">Dormant</h2>
+    <ul class="projects-list">
+      {{ range . }}
+        <li class="project-row">
+          <div class="project-row-head">
+            <span class="project-name">{{ .name }}</span>
+            <div class="project-row-status">{{ .status }}</div>
+          </div>
+          <div class="project-row-body">
+            <p>{{ .longDescription }}</p>
+          </div>
+        </li>
+      {{ end }}
+    </ul>
+  {{ end }}
 </div>
 {{ end }}
