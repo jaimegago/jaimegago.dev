@@ -807,6 +807,10 @@ main.site-main {
     bottom: 0;
     left: calc(100% + 40px);
     width: 176px;
+    /* The rail box spans the full article height across the right lane.
+       It must never intercept clicks on anything beneath or beside it —
+       only its actual interactive descendants may capture pointers. */
+    pointer-events: none;
   }
 
   .toc-rail .toc {
@@ -814,6 +818,7 @@ main.site-main {
     top: var(--space-6);
     font-size: 13px;
     transition: opacity var(--transition);
+    pointer-events: auto;
   }
 
   .toc-title {
@@ -866,6 +871,11 @@ main.site-main {
   line-height: 0;
 }
 
+.figure-float a {
+  display: block;
+  line-height: 0;
+}
+
 /* breakout: 1.3x the prose measure, centered on the column */
 @media (min-width: 900px) {
   .post-content .figure-breakout {
@@ -896,6 +906,68 @@ main.site-main {
 
   .figure-margin figcaption {
     font-size: 12px;
+  }
+}
+
+/* height-capped figure: rendered height bounded, aspect ratio preserved,
+   centered. `--fig-cap` is set inline by the shortcode's `cap` param. */
+.figure-capped {
+  text-align: center;
+}
+
+.figure-capped img {
+  width: auto;
+  max-width: 100%;
+  max-height: var(--fig-cap, 400px);
+  margin-inline: auto;
+}
+
+.figure-capped figcaption {
+  text-align: center;
+}
+
+/* floated in-column figure: image sits inside the text measure and the
+   prose wraps around it. Narrow viewports collapse it to a centered inline
+   figure (default, below); the float only engages at wider widths. */
+.figure-float {
+  max-width: 320px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.figure-float img {
+  width: 100%;
+}
+
+.figure-float figcaption {
+  font-size: 12px;
+}
+
+@media (min-width: 700px) {
+  .post-content .figure-float {
+    width: 40%;
+    max-width: none;
+    margin-top: var(--space-1);
+    margin-bottom: var(--space-4);
+  }
+
+  .post-content .figure-float--right {
+    float: right;
+    clear: right;
+    margin-left: var(--space-6);
+    margin-right: 0;
+  }
+
+  .post-content .figure-float--left {
+    float: left;
+    clear: left;
+    margin-right: var(--space-6);
+    margin-left: 0;
+  }
+
+  /* never let a float bleed past its section into the next heading */
+  .post-content h2 {
+    clear: both;
   }
 }
 

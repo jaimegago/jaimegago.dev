@@ -5,6 +5,18 @@
 {{- $margin   := eq (.Get "margin") "true" -}}
 {{- $breakout := eq (.Get "breakout") "true" -}}
 {{- $width    := .Get "width" | default "380x" -}}
+{{- $cap      := .Get "cap" -}}
+
+{{- /* float: an in-column figure the text wraps around. Accepts a side
+       ("left"/"right") or "true" (defaults right). Any other value is off. */ -}}
+{{- $floatRaw := .Get "float" -}}
+{{- $floatSide := "" -}}
+{{- if or (eq $floatRaw "right") (eq $floatRaw "true") -}}
+  {{- $floatSide = "right" -}}
+{{- else if eq $floatRaw "left" -}}
+  {{- $floatSide = "left" -}}
+{{- end -}}
+{{- $float := ne $floatSide "" -}}
 
 {{- if not $src -}}
   {{- errorf "figure shortcode: missing required `src` (used at %s)" .Position -}}
@@ -13,15 +25,19 @@
   {{- errorf "figure shortcode: `alt` is required and must be non-empty (used at %s)" .Position -}}
 {{- end -}}
 
-{{- if or $thumb $margin -}}
+{{- if or (or $thumb $margin) $float -}}
   {{- $img := resources.Get $src -}}
   {{- if not $img -}}
     {{- errorf "figure shortcode: could not find asset `%s` (used at %s)" $src .Position -}}
   {{- end -}}
-  {{- /* margin figures display at 176px in the rail lane; resize 2x for sharpness */ -}}
-  {{- $w := cond $margin "400x" $width -}}
+  {{- /* margin figures display at 176px in the rail lane; floated figures at
+         ~40% of the 620px measure. Resize 2x for sharpness in both cases. */ -}}
+  {{- $w := $width -}}
+  {{- if $margin }}{{ $w = "400x" }}{{ else if $float }}{{ $w = "560x" }}{{ end -}}
   {{- $small := $img.Resize $w -}}
-  <figure class="figure {{ if $margin }}figure-margin{{ else }}figure-thumb{{ end }}">
+  {{- $cls := "figure-thumb" -}}
+  {{- if $margin }}{{ $cls = "figure-margin" }}{{ else if $float }}{{ $cls = printf "figure-float figure-float--%s" $floatSide }}{{ end -}}
+  <figure class="figure {{ $cls }}">
     <a class="lightbox-link" href="{{ $img.RelPermalink }}" target="_blank" rel="noopener">
       <img src="{{ $small.RelPermalink }}" alt="{{ $alt }}" loading="lazy" decoding="async" width="{{ $small.Width }}" height="{{ $small.Height }}">
     </a>
@@ -30,7 +46,7 @@
     {{- end }}
   </figure>
 {{- else -}}
-<figure class="figure{{ if $breakout }} figure-breakout{{ end }}">
+<figure class="figure{{ if $breakout }} figure-breakout{{ end }}{{ if $cap }} figure-capped{{ end }}"{{ with $cap }} style="--fig-cap: {{ . }}px"{{ end }}>
   <img src="{{ $src | relURL }}" alt="{{ $alt }}" loading="lazy" decoding="async">
   {{- with $caption }}
   <figcaption>{{ . | markdownify }}</figcaption>

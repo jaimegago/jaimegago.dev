@@ -86,6 +86,15 @@
       e.preventDefault();
       closeLightbox();
     });
+    /* Some engines (and synthetic key events) deliver the Esc keydown but
+       never run the dialog's native close-request, so `cancel` doesn't fire.
+       Close explicitly on Escape keydown too; closeLightbox is idempotent. */
+    dlg.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" || e.key === "Esc") {
+        e.preventDefault();
+        closeLightbox();
+      }
+    });
     dlg.addEventListener("close", closeLightbox);
   }
 })();
