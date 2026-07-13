@@ -12,6 +12,10 @@ sitemap:
   disable: true
 ---
 
+> **TL;DR** — Twice in the past year I watched an LLM out-diagnose experienced SREs on complex production failures, including through me as its copy-paste hands. I think that's now the norm: for a growing share of infrastructure operations, the models are better than us — and the open problem is enabling them *safely*, which is harder than it looks (see: Kiro, 13-hour AWS outage). So I built [Joe](https://joeagent.dev): an open-source infrastructure agent whose safety is a property of the binary, not of its configuration — every tool deterministically classified Read or Mutate in code, observation-only at launch, evaluated against [OASIS](/writing/introducing-oasis/). This essay is the story, the argument, and what's next.
+
+---
+
 {{< figure src="/images/joe-launch/flyball-governor.png" alt="An engraved-style illustration of a brass flyball governor on a wooden base" caption=`A centrifugal "flyball" governor — the first machine built to govern a machine. Joe wears it as its mark.` >}}
 
 Last December I was three months into a new platform engineering job, on ticket watch, staring at one I had no idea how to approach. A product team's release was on hold: their gateway's HTTPS redirect had worked for months, then silently broke in one environment — the controller rejecting the route with `RuleMatchConflict`. Nothing had changed on their side. The identical config was working fine in the neighboring environment. I went looking for a runbook and found tribal knowledge instead.
@@ -117,6 +121,8 @@ So far Joe has proven itself in [a lab environment](https://github.com/jaimegago
 I want to push a conversation. Agents *will* be given the keys to critical infrastructure — the economics guarantee it. Whether they'll be open source and governed by construction, or proprietary and governed by promises, is being decided right now, mostly by default. I'd like the default challenged while it's still cheap to challenge. If this essay makes one platform team ask a vendor "what guarantees the agent only reads?", it did its job.
 
 And I wanted to prove something to myself. The last few months of working with these models had been telling me, somewhere in the gut, that the old constraint was gone — that one person could now design, build, evaluate, and ship a product this ambitious alone. Joe is the test of that claim. How it was actually built is a story for its own essay; the short version is that you're reading the launch post, so the gut was right.
+
+Which leads to the most selfish item of all, so I'll just say it plainly: I built Joe nights and weekends, and I'd rather build things like it as my day job. If your team works on applied AI or forward-deployed engineering — putting agents into real production organizations, with the safety problems that come with that — I'm interested, and this essay plus the repos are my application.
 
 ## Try it
 
