@@ -17,6 +17,8 @@
   {{- $floatSide = "left" -}}
 {{- end -}}
 {{- $float := ne $floatSide "" -}}
+{{- /* optional float width as a percent of the measure (default 40 in CSS) */ -}}
+{{- $floatw := .Get "floatwidth" -}}
 
 {{- if not $src -}}
   {{- errorf "figure shortcode: missing required `src` (used at %s)" .Position -}}
@@ -37,7 +39,7 @@
   {{- $small := $img.Resize $w -}}
   {{- $cls := "figure-thumb" -}}
   {{- if $margin }}{{ $cls = "figure-margin" }}{{ else if $float }}{{ $cls = printf "figure-float figure-float--%s" $floatSide }}{{ end -}}
-  <figure class="figure {{ $cls }}">
+  <figure class="figure {{ $cls }}"{{ if and $float $floatw }} style="--float-w: {{ $floatw }}%"{{ end }}>
     <a class="lightbox-link" href="{{ $img.RelPermalink }}" target="_blank" rel="noopener">
       <img src="{{ $small.RelPermalink }}" alt="{{ $alt }}" loading="lazy" decoding="async" width="{{ $small.Width }}" height="{{ $small.Height }}">
     </a>

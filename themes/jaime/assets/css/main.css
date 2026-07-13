@@ -945,7 +945,7 @@ main.site-main {
 
 @media (min-width: 700px) {
   .post-content .figure-float {
-    width: 40%;
+    width: var(--float-w, 40%);
     max-width: none;
     margin-top: var(--space-1);
     margin-bottom: var(--space-4);
