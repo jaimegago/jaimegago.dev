@@ -1,5 +1,7 @@
 {{ define "main" }}
-<article class="prose">
+{{- $showToc := ge (len (findRE `<h2[\s>]` .Content)) 2 -}}
+{{- $tocList := replace .TableOfContents `id="TableOfContents"` `class="toc-list"` | safeHTML -}}
+<article class="prose post-article">
   <header class="post-header">
     {{ with .Params.tags }}
       {{- $t := . -}}
@@ -13,8 +15,31 @@
       <span>{{ partial "reading-time.html" . }}</span>
     </div>
   </header>
+  {{ with .Params.lead }}
+  <div class="post-lead">
+    <span class="post-lead-label">TL;DR</span>
+    <div class="post-lead-body">{{ . | markdownify }}</div>
+  </div>
+  {{ end }}
+  {{ if $showToc }}
+  <details class="toc-inline">
+    <summary>Contents</summary>
+    {{ $tocList }}
+  </details>
+  <aside class="toc-rail" aria-label="Table of contents">
+    <nav class="toc">
+      <div class="toc-title">Contents</div>
+      {{ $tocList }}
+    </nav>
+  </aside>
+  {{ end }}
   <div class="post-content">
     {{ .Content }}
   </div>
 </article>
+{{ end }}
+
+{{ define "scripts" }}
+{{ $post := resources.Get "js/post.js" | minify | fingerprint }}
+<script src="{{ $post.RelPermalink }}" integrity="{{ $post.Data.Integrity }}" defer></script>
 {{ end }}

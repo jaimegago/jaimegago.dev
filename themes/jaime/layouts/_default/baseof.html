@@ -15,5 +15,6 @@
     {{ partial "analytics.html" . }}
     {{ $toggle := resources.Get "js/theme-toggle.js" | minify | fingerprint }}
     <script src="{{ $toggle.RelPermalink }}" integrity="{{ $toggle.Data.Integrity }}" defer></script>
+    {{ block "scripts" . }}{{ end }}
   </body>
 </html>

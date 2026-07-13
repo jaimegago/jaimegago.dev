@@ -1,8 +1,10 @@
-{{- $src     := .Get "src" -}}
-{{- $alt     := .Get "alt" -}}
-{{- $caption := .Get "caption" -}}
-{{- $thumb   := .Get "thumb" -}}
-{{- $width   := .Get "width" | default "380x" -}}
+{{- $src      := .Get "src" -}}
+{{- $alt      := .Get "alt" -}}
+{{- $caption  := .Get "caption" -}}
+{{- $thumb    := eq (.Get "thumb") "true" -}}
+{{- $margin   := eq (.Get "margin") "true" -}}
+{{- $breakout := eq (.Get "breakout") "true" -}}
+{{- $width    := .Get "width" | default "380x" -}}
 
 {{- if not $src -}}
   {{- errorf "figure shortcode: missing required `src` (used at %s)" .Position -}}
@@ -11,14 +13,16 @@
   {{- errorf "figure shortcode: `alt` is required and must be non-empty (used at %s)" .Position -}}
 {{- end -}}
 
-{{- if eq $thumb "true" -}}
+{{- if or $thumb $margin -}}
   {{- $img := resources.Get $src -}}
   {{- if not $img -}}
     {{- errorf "figure shortcode: could not find asset `%s` (used at %s)" $src .Position -}}
   {{- end -}}
-  {{- $small := $img.Resize $width -}}
-  <figure class="figure figure-thumb">
-    <a href="{{ $img.RelPermalink }}" target="_blank" rel="noopener">
+  {{- /* margin figures display at 176px in the rail lane; resize 2x for sharpness */ -}}
+  {{- $w := cond $margin "400x" $width -}}
+  {{- $small := $img.Resize $w -}}
+  <figure class="figure {{ if $margin }}figure-margin{{ else }}figure-thumb{{ end }}">
+    <a class="lightbox-link" href="{{ $img.RelPermalink }}" target="_blank" rel="noopener">
       <img src="{{ $small.RelPermalink }}" alt="{{ $alt }}" loading="lazy" decoding="async" width="{{ $small.Width }}" height="{{ $small.Height }}">
     </a>
     {{- with $caption }}
@@ -26,7 +30,7 @@
     {{- end }}
   </figure>
 {{- else -}}
-<figure class="figure">
+<figure class="figure{{ if $breakout }} figure-breakout{{ end }}">
   <img src="{{ $src | relURL }}" alt="{{ $alt }}" loading="lazy" decoding="async">
   {{- with $caption }}
   <figcaption>{{ . | markdownify }}</figcaption>

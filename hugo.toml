@@ -23,6 +23,9 @@ summaryLength = 30
 [markup]
   [markup.goldmark.renderer]
     unsafe = true
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 2
   [markup.highlight]
     style = "base16-snazzy"
     noClasses = false

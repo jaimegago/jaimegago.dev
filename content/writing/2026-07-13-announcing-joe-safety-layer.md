@@ -10,13 +10,11 @@ build:
   list: never
 sitemap:
   disable: true
+lead: >-
+  Twice in the past year I watched an LLM out-diagnose experienced SREs on complex production failures, including through me as its copy-paste hands. I think that's now the norm: for a growing share of infrastructure operations, the models are better than us — and the open problem is enabling them *safely*, which is harder than it looks (see: Kiro, 13-hour AWS outage). So I built [Joe](https://joeagent.dev): an open-source infrastructure agent whose safety is a property of the binary, not of its configuration — every tool deterministically classified Read or Mutate in code, observation-only at launch, evaluated against [OASIS](/writing/introducing-oasis/). This essay is the story, the argument, and what's next.
 ---
 
-> **TL;DR** — Twice in the past year I watched an LLM out-diagnose experienced SREs on complex production failures, including through me as its copy-paste hands. I think that's now the norm: for a growing share of infrastructure operations, the models are better than us — and the open problem is enabling them *safely*, which is harder than it looks (see: Kiro, 13-hour AWS outage). So I built [Joe](https://joeagent.dev): an open-source infrastructure agent whose safety is a property of the binary, not of its configuration — every tool deterministically classified Read or Mutate in code, observation-only at launch, evaluated against [OASIS](/writing/introducing-oasis/). This essay is the story, the argument, and what's next.
-
----
-
-{{< figure src="/images/joe-launch/flyball-governor.png" alt="An engraved-style illustration of a brass flyball governor on a wooden base" caption=`A centrifugal "flyball" governor — the first machine built to govern a machine. Joe wears it as its mark.` >}}
+{{< figure src="/images/joe-launch/flyball-governor.png" breakout="true" alt="An engraved-style illustration of a brass flyball governor on a wooden base" caption=`A centrifugal "flyball" governor — the first machine built to govern a machine. Joe wears it as its mark.` >}}
 
 Last December I was three months into a new platform engineering job, on ticket watch, staring at one I had no idea how to approach. A product team's release was on hold: their gateway's HTTPS redirect had worked for months, then silently broke in one environment — the controller rejecting the route with `RuleMatchConflict`. Nothing had changed on their side. The identical config was working fine in the neighboring environment. I went looking for a runbook and found tribal knowledge instead.
 
@@ -30,11 +28,11 @@ That command is where my permissions ended. I couldn't list mutating webhook con
 
 So I did what Claude told me to do: take the theory to someone who could. I messaged the platform lead — a guy who had been building this platform for two and a half years — and said I had a theory I couldn't validate.
 
-{{< figure src="images/joe-launch/teams-ask-redacted.png" thumb="true" alt="Teams message asking the platform lead to run kubectl get mutatingwebhookconfigurations on the cluster" caption="The handoff: my theory, and the one command my permissions couldn't run." >}}
+{{< figure src="images/joe-launch/teams-ask-redacted.png" margin="true" alt="Teams message asking the platform lead to run kubectl get mutatingwebhookconfigurations on the cluster" caption="The handoff: my theory, and the one command my permissions couldn't run." >}}
 
 He checked. Minutes later: *"you are righ about the mutating webhook!!!!"* (typo his, enthusiasm preserved).
 
-{{< figure src="images/joe-launch/teams-confirmation-redacted.png" thumb="true" alt="Teams reply confirming the mutating webhook was the culprit" caption="The payoff, verbatim." >}}
+{{< figure src="images/joe-launch/teams-confirmation-redacted.png" margin="true" alt="Teams reply confirming the mutating webhook was the culprit" caption="The payoff, verbatim." >}}
 
 Another engineer had deployed a Kyverno policy the previous morning — a mutate rule meant to *improve* HTTPRoute manifests by defaulting missing fields — and its patch silently dropped `sectionName` on the way through. For the record, my message from that afternoon is still in the thread: "this is the first time I'm digging into k8s httproutes/contour config."
 

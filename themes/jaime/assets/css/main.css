@@ -628,6 +628,11 @@ main.site-main {
   color: var(--text);
 }
 
+.post-content h2[id],
+.post-content h3[id] {
+  scroll-margin-top: var(--space-5);
+}
+
 .post-content > * + * {
   margin-top: var(--space-5);
 }
@@ -699,6 +704,138 @@ main.site-main {
   font-style: normal;
 }
 
+/* ---- lead / TL;DR panel ---- */
+
+.post-lead {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 2px solid var(--accent);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  margin-bottom: var(--space-6);
+}
+
+.post-lead-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: var(--space-3);
+}
+
+.post-lead-body {
+  font-size: 15.5px;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.post-lead-body a {
+  color: var(--text);
+  text-decoration: underline;
+  text-decoration-thickness: 0.5px;
+  text-underline-offset: 3px;
+}
+
+.post-lead-body a:hover {
+  color: var(--accent);
+}
+
+/* ---- table of contents ---- */
+
+.toc-list ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.toc-list li + li {
+  margin-top: 6px;
+}
+
+.toc-list a {
+  display: block;
+  color: var(--text-muted);
+  text-decoration: none;
+  line-height: 1.45;
+  transition: color var(--transition);
+}
+
+.toc-list a:hover {
+  color: var(--accent);
+}
+
+.toc-inline {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--space-3) var(--space-4);
+  margin-bottom: var(--space-6);
+  font-size: 14px;
+}
+
+.toc-inline summary {
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.toc-inline .toc-list {
+  margin-top: var(--space-3);
+}
+
+.toc-rail {
+  display: none;
+}
+
+@media (min-width: 1100px) {
+  .post-article {
+    position: relative;
+  }
+
+  .toc-inline {
+    display: none;
+  }
+
+  .toc-rail {
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(100% + 40px);
+    width: 176px;
+  }
+
+  .toc-rail .toc {
+    position: sticky;
+    top: var(--space-6);
+    font-size: 13px;
+    transition: opacity var(--transition);
+  }
+
+  .toc-title {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: var(--space-3);
+  }
+
+  .toc-rail .toc-list a.is-active {
+    color: var(--text);
+  }
+
+  /* JS adds this while a margin/breakout figure's rect intersects the ToC */
+  .toc-rail--yield .toc {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
 /* figure shortcode */
 .figure {
   margin: var(--space-6) 0;
@@ -723,9 +860,95 @@ main.site-main {
   max-width: 100%;
 }
 
-.figure-thumb a {
+.figure-thumb a,
+.figure-margin a {
   display: inline-block;
   line-height: 0;
+}
+
+/* breakout: 1.3x the prose measure, centered on the column */
+@media (min-width: 900px) {
+  .post-content .figure-breakout {
+    width: calc(var(--prose-max) * 1.3);
+    margin-left: calc((var(--prose-max) - var(--prose-max) * 1.3) / 2);
+  }
+}
+
+/* margin figure: centered small inline below 1100px, right-margin float above */
+.figure-margin {
+  max-width: 320px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.figure-margin img {
+  width: 100%;
+}
+
+@media (min-width: 1100px) {
+  .post-content .figure-margin {
+    float: right;
+    clear: right;
+    width: 176px;
+    max-width: none;
+    margin: var(--space-1) calc(-176px - 40px) var(--space-5) var(--space-5);
+  }
+
+  .figure-margin figcaption {
+    font-size: 12px;
+  }
+}
+
+/* ---- lightbox ---- */
+
+html.lightbox-open {
+  overflow: hidden;
+}
+
+.lightbox {
+  border: none;
+  padding: 0;
+  background: transparent;
+  max-width: none;
+  max-height: none;
+  overflow: visible;
+}
+
+.lightbox::backdrop {
+  background: rgba(0, 0, 0, 0.78);
+}
+
+.lightbox img {
+  display: block;
+  max-width: min(92vw, 1400px);
+  max-height: 88vh;
+  width: auto;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: -14px;
+  right: -14px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 1px solid var(--border-hi);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.lightbox-close:hover {
+  color: var(--accent);
+  border-color: var(--accent);
 }
 
 /* ---- projects page ---- */
