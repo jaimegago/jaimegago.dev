@@ -54,6 +54,15 @@
     document.body.appendChild(dlg);
     var img = dlg.querySelector("img");
 
+    /* Release the scroll lock explicitly on every close path rather than
+       relying on the dialog's `close` event, which some engines fire
+       unreliably (leaving the page scroll-locked). Idempotent. */
+    var closeLightbox = function () {
+      document.documentElement.classList.remove("lightbox-open");
+      img.removeAttribute("src");
+      if (dlg.open) dlg.close();
+    };
+
     document.addEventListener("click", function (e) {
       var a = e.target.closest ? e.target.closest("a.lightbox-link") : null;
       if (!a) return;
@@ -65,17 +74,18 @@
       document.documentElement.classList.add("lightbox-open");
     });
 
-    dlg.querySelector(".lightbox-close").addEventListener("click", function () {
-      dlg.close();
-    });
+    dlg.querySelector(".lightbox-close").addEventListener("click", closeLightbox);
     /* Backdrop clicks dispatch to the dialog element itself; clicks on the
        image or close button target those elements instead. */
     dlg.addEventListener("click", function (e) {
-      if (e.target === dlg) dlg.close();
+      if (e.target === dlg) closeLightbox();
     });
-    dlg.addEventListener("close", function () {
-      document.documentElement.classList.remove("lightbox-open");
-      img.removeAttribute("src");
+    /* Esc fires `cancel`; handle it directly so the scroll lock always
+       releases even where the subsequent `close` event is flaky. */
+    dlg.addEventListener("cancel", function (e) {
+      e.preventDefault();
+      closeLightbox();
     });
+    dlg.addEventListener("close", closeLightbox);
   }
 })();

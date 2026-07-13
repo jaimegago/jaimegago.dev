@@ -58,7 +58,7 @@ The same month as my mutating-webhook afternoon, Amazon's AI coding assistant Ki
 
 Look at the reported root causes and notice that none of them are model failures. Kiro inherited an engineer's elevated permissions — the AI could do whatever the human could do. Nothing in the system had a concept of "this action is too large." The human-in-the-loop step existed but was bypassed, because the safeguard lived in configuration that the deployment's permissions happened to defeat. And the fix — mandatory peer review for production changes — was added after the outage, as process.
 
-Amazon called it user error: misconfigured access controls, not AI. That's exactly the point. An agent architecture whose safety depends on nobody misconfiguring access controls is an architecture designed to produce this incident. The failure was structural, and structure is a choice.
+Amazon called it user error: misconfigured access controls, not AI.[^kiro-amazon] That's exactly the point. An agent architecture whose safety depends on nobody misconfiguring access controls is an architecture designed to produce this incident. The failure was structural, and structure is a choice.
 
 Here's the part I find genuinely funny, in the gallows way: the incident that convinced me LLMs can do SRE work was *itself* caused by ungoverned mutation of live infrastructure — a policy webhook, deployed shoot-from-the-hip, silently rewriting production objects in the gap between git and the cluster. The disease and the cure were in the same room the whole time.
 
@@ -128,5 +128,6 @@ If Joe had existed that afternoon in December, the loop I performed by hand — 
 
 Joe lives at [joeagent.dev](https://joeagent.dev). The safety architecture has its own deep dive at [joeagent.dev/safety](https://joeagent.dev/safety/). The code is on GitHub. Point it at a cluster and ask it something you'd have opened a ticket for.
 
-[^kiro-ft]: Financial Times, "AWS suffered outages after engineers let AI coding tools make changes" (Feb 20, 2026). <!-- TODO-VERIFY-URL -->
-[^kiro-register]: The Register, ["Amazon's vibe-coding tool Kiro reportedly vibed too hard"](https://www.theregister.com/off-prem/2026/02/20/amazons-vibe-coding-tool-kiro-reportedly-vibed-too-hard/4873987) (Feb 20, 2026).
+[^kiro-ft]: First reported by the Financial Times, Feb 20, 2026 (paywalled); accessible summary at [GeekWire](https://www.geekwire.com/2026/amazon-pushes-back-on-financial-times-report-blaming-ai-coding-tools-for-aws-outages/).
+[^kiro-register]: The Register, ["Amazon's vibe-coding tool Kiro reportedly vibed too hard"](https://www.theregister.com/2026/02/20/amazon_denies_kiro_agentic_ai_behind_outage/) (Feb 20, 2026).
+[^kiro-amazon]: Amazon, ["Correcting the Financial Times report about AWS, Kiro, and AI"](https://www.aboutamazon.com/news/aws/aws-service-outage-ai-bot-kiro) (Feb 20, 2026).
