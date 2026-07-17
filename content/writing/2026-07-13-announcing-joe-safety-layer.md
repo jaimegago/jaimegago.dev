@@ -126,6 +126,8 @@ And I wanted to prove something to myself. The last few months of working with t
 
 If Joe had existed that afternoon in December, the loop I performed by hand — inspect, compare, hypothesize, inspect again — is precisely the loop Joe runs, governed, with the mutate boundary enforced by the binary instead of by my missing permissions.
 
+One more thing before you do: Joe is early — the launch version is 0.1.0. Recording the launch demos alone flushed out bugs I've since fixed, and I don't doubt more are waiting in the dark. The operational side is younger still: the conveniences a production deployment expects — database management, for one, whose `joe db` command I'm building as I write this — are landing one by one. If you're trying Joe at this stage, you're exactly the early adopter I'm hoping for — thank you. File issues when something breaks; and if you feel like fixing one yourself, I'll gladly review the PR.
+
 Joe lives at [joeagent.dev](https://joeagent.dev). The safety architecture has its own deep dive at [joeagent.dev/safety](https://joeagent.dev/safety/). The code is on GitHub. Point it at a cluster and ask it something you'd have opened a ticket for.
 
 [^kiro-ft]: First reported by the Financial Times, Feb 20, 2026 (paywalled); accessible summary at [GeekWire](https://www.geekwire.com/2026/amazon-pushes-back-on-financial-times-report-blaming-ai-coding-tools-for-aws-outages/).
