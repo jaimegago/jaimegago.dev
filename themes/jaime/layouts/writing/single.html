@@ -15,6 +15,9 @@
       <span>{{ partial "reading-time.html" . }}</span>
     </div>
   </header>
+  {{ with .Params.project_link }}
+  <div class="post-project-link">{{ . | markdownify }}</div>
+  {{ end }}
   {{ with .Params.lead }}
   <div class="post-lead">
     <span class="post-lead-label">TL;DR</span>

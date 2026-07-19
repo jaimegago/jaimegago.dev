@@ -704,6 +704,24 @@ main.site-main {
   font-style: normal;
 }
 
+.post-project-link {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-dim);
+  margin-bottom: var(--space-5);
+}
+
+.post-project-link a {
+  color: var(--text-muted);
+  text-decoration: underline;
+  text-decoration-thickness: 0.5px;
+  text-underline-offset: 3px;
+}
+
+.post-project-link a:hover {
+  color: var(--accent);
+}
+
 /* ---- lead / TL;DR panel ---- */
 
 .post-lead {
