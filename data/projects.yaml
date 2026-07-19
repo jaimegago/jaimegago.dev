@@ -19,14 +19,15 @@ active:
       mimicking real production environments. It implements the OASIS
       Software Infrastructure provider conformance contract, so a Petri lab
       can serve as the environment an agent is evaluated against. Apache 2.0.
-  - name: skillhub
-    description: "Claude Code plugin for authoring Claude Code plugins. MCP server, Apache 2.0."
-    url: "https://github.com/jaimegago/skillhub"
-    urlLabel: "github.com/jaimegago/skillhub"
+  - name: joe
+    description: "Open-source infrastructure agent with a deterministic Read/Mutate boundary. Observation mode, Apache 2.0."
+    url: "https://joeagent.dev"
+    urlLabel: "joeagent.dev"
     longDescription: >-
-      A Claude Code plugin that helps you build Claude Code plugins: scaffolding,
-      an MCP server for local tool development, and a small library of skills
-      for common authoring patterns. Apache 2.0, designed to get out of the way
-      as soon as the plugin starts working.
+      An infrastructure agent whose safety is a property of the binary, not its
+      configuration: every tool is classified Read or Mutate at authoring time,
+      it boots into observation mode, and a persistent graph keeps its model of
+      your infrastructure current across sessions. Evaluated against OASIS,
+      Apache 2.0.
 
 dormant: []
