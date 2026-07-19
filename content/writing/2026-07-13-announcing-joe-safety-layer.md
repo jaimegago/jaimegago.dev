@@ -1,15 +1,10 @@
 ---
 title: "Announcing Joe, and why I was the safety layer"
 slug: "announcing-joe-safety-layer"
-date: 2026-07-13T10:00:00+02:00
+date: 2026-07-19T10:00:00+02:00
 tags: [Launch]
 description: "Last December a Kubernetes routing failure taught me two things at once: that Claude was already better at SRE work than I was, and that I was the safety layer — every command it proposed passed through my judgment before it touched the cluster. Joe is the agent built from that lesson: a deterministic Read/Mutate boundary enforced in code, not configuration, launching in observation mode, open source, because governed-by-construction only means something if you can inspect the construction."
 draft: false
-build:
-  render: always
-  list: never
-sitemap:
-  disable: true
 lead: >-
   Twice in the past year I watched an LLM out-diagnose experienced SREs on complex production failures, including through me as its copy-paste hands. I think that's now the norm: for a growing share of infrastructure operations, the models are better than us — and the open problem is enabling them *safely*, which is harder than it looks (see: Kiro, 13-hour AWS outage). So I built [Joe](https://joeagent.dev): an open-source infrastructure agent whose safety is a property of the binary, not of its configuration — every tool deterministically classified Read or Mutate in code, observation-only at launch, evaluated against [OASIS](/writing/introducing-oasis/). This essay is the story, the argument, and what's next.
 ---
