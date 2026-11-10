@@ -3,7 +3,7 @@ title: "WarGames vs. Hacked Jarvis: what read-only buys an agent"
 slug: "wargames-vs-hacked-jarvis"
 date: 2026-11-10T10:00:00+01:00
 tags: [Essay]
-description: ""
+description: "Claude's Gmail connector splits its tools into read-only and write/delete, the same split I built into Joe and the one everyone building agents seems to be converging on. But read-only answers the two ways an agent goes wrong very differently: against WarGames, an agent escalating on its own, it's close to complete; against Hacked Jarvis, someone else giving the orders, it only limits the damage. It's a holding position until write access arrives, which is why I want evidence instead of confidence before Joe gets it."
 draft: false
 ---
 
