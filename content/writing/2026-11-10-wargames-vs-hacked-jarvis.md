@@ -7,9 +7,9 @@ description: ""
 draft: false
 ---
 
-I was looking at the Gmail connector settings for Claude this week and noticed the tools are split in two: read-only tools, always allowed, and write/delete tools, which need approval. It's the same split I built into Joe, and the same one I keep seeing in other agent tooling. Everyone building agents seems to be converging on read versus write as the core safety control.
+I was looking at the Gmail connector settings for Claude this week and noticed the tools are split in two groups, read-only and write/delete, each with its own approval setting. I have read-only set to always allow and write/delete set to need approval. It's the same split I built into Joe, and the same one I keep seeing in other agent tooling. Everyone building agents seems to be converging on read versus write as the core safety control.
 
-{{< figure src="images/wargames-vs-hacked-jarvis/gmail-connector-tool-permissions.png" float="right" alt="Claude's Gmail connector settings: read-only tools always allowed, write/delete tools needing approval." caption="Claude's Gmail connector settings: read-only tools always allowed, write/delete tools needing approval." >}}
+{{< figure src="images/wargames-vs-hacked-jarvis/gmail-connector-tool-permissions.png" float="right" alt="Claude's Gmail connector settings: read-only and write/delete tools are separate groups, each with its own approval setting." caption="Claude's Gmail connector settings: read-only and write/delete tools are separate groups, each with its own approval setting." >}}
 
 It's worth asking what that control protects against, because there are two different ways an agent goes wrong.
 
