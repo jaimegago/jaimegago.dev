@@ -23,7 +23,7 @@ Against WarGames it is close to complete. An agent that cannot mutate anything c
 
 Against Hacked Jarvis it only limits the damage. A hijacked read-only agent still can't change your systems, but it can read them, and whatever it can read it can be talked into revealing. Read-only bounds what the agent can do. It doesn't bound what the agent can learn or be told.
 
-It looks like this is why infrastructure agents today sell "investigation" and ship read-only by default (e.g. HolmesGPT, AWS DevOps Agent, Azure SRE Agent). Operator permissions are the highest privilege in any system, and the stakes are whatever that system runs: a datacenter, a hospital, a power grid. Read-only takes WarGames off the table while everyone works out the rest.
+It looks like this is why infrastructure agents today sell "investigation" and ship read-only by default (e.g. HolmesGPT, AWS DevOps Agent, Azure SRE Agent). Operator permissions are the highest privilege in any system, and the stakes are whatever that system runs: a datacenter, a hospital, a power grid, a missile silo. Read-only takes WarGames off the table while everyone works out the rest.
 
 It's a holding position. Write access is already arriving behind approval gates, and it's coming to [Joe](https://joeagent.dev) too, because an operations agent that can only watch is half an agent. When it arrives, WarGames is back, and Hacked Jarvis stops being a leak and becomes someone else operating your infrastructure.
 
